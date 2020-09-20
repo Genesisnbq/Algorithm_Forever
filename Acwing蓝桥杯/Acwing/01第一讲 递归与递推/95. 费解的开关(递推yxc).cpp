@@ -39,7 +39,6 @@ void turn(int x, int y)
         if(a < 0 || a >= 5 || b < 0 || b >= 5) continue;
         g[a][b] ^= 1; // '0'是48 所以 ^1就是49 =='1'
     }
-    return;
 }
 
 int main()

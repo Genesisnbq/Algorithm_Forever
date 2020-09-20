@@ -44,14 +44,25 @@ const int N = 25e5 + 10;
 
 struct Sum
 {
-    int s, c, d; // s表示c和d的平方
-    bool operator<(const Sum& t) const //返回较小的那个
+    int s, c, d;                       // s表示c和d的平方
+    bool operator<(const Sum &t) const //返回较小的那个
     {
-        if(s != t.s) return s < t.s;
-        if(c != t.c) return c < t.c;
+        if (s != t.s)
+            return s < t.s;
+        if (c != t.c)
+            return c < t.c;
         return d < t.d;
     }
 } sum[N];
+
+// bool cmp(struct Sum &a, struct Sum &b)
+// {
+//     if (a.s < b.s)
+//         return a.s < b.s;
+//     if (a.c < b.c)
+//         return a.c < b.c;
+//     return a.d < b.d;
+// }
 
 int n, m;
 
@@ -59,25 +70,27 @@ int main(void)
 {
     scanf("%d", &n);
 
-    for(int c = 0; c * c <= n; c++)
-        for(int d = c; c * c + d * d <= n; d++) sum[m++] = {c * c + d * d, c, d};
+    for (int c = 0; c * c <= n; c++)
+        for (int d = c; c * c + d * d <= n; d++)
+            sum[m++] = {c * c + d * d, c, d};
 
+    // sort(sum, sum + m, cmp);
     sort(sum, sum + m);
 
-    for(int a = 0; a <= n; a++)
-        for(int b = 0; b * b + a * a <= n; b++)
+    for (int a = 0; a <= n; a++)
+        for (int b = 0; b * b + a * a <= n; b++)
         {
             int t = n - a * a - b * b;
             int l = 0, r = m - 1;
-            while(l < r)
+            while (l < r)
             {
                 int mid = l + r >> 1;
-                if(sum[mid].s >= t) //要找一个最小的 所以是>=
+                if (sum[mid].s >= t) //要找一个最小的 所以是>=
                     r = mid;
                 else
                     l = mid + 1;
             }
-            if(sum[l].s == t)
+            if (sum[l].s == t)
             {
                 printf("%d %d %d %d\n", a, b, sum[l].c, sum[l].d);
                 return 0;

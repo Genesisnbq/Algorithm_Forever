@@ -41,7 +41,7 @@ int get(int x, int y)
 
 void turn_one(int x, int y)
 {
-    if(g[x][y] == '-')
+    if (g[x][y] == '-')
         g[x][y] = '+';
     else
         g[x][y] = '-';
@@ -49,7 +49,7 @@ void turn_one(int x, int y)
 
 void turn_all(int x, int y)
 {
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         turn_one(x, i);
         turn_one(i, y);
@@ -59,17 +59,18 @@ void turn_all(int x, int y)
 
 int main(void)
 {
-    for(int i = 0; i < 4; i++) scanf("%s", g[i]);
+    for (int i = 0; i < 4; i++)
+        scanf("%s", g[i]);
     vector<PII> ans;
-    for(int op = 0; op < (1 << 16); op++) // 1<<16 就是2^16
+    for (int op = 0; op < (1 << 16); op++) // 1<<16 就是2^16
     {
         vector<PII> location;
         memcpy(backup, g, sizeof backup); //备份
         //进行操作
-        for(int i = 0; i < 4; i++)
-            for(int j = 0; j < 4; j++)
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
             {
-                if(op >> get(i, j) & 1)
+                if (op >> get(i, j) & 1)
                 {
                     location.push_back({i, j});
                     turn_all(i, j);
@@ -77,24 +78,25 @@ int main(void)
             }
         // 判断所有开关是不是都打开了
         bool have_close = false;
-        for(int i = 0; i < 4; i++)
-            for(int j = 0; j < 4; j++)
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
             {
-                if(g[i][j] == '+')
+                if (g[i][j] == '+')
                 {
                     have_close = true;
                     break;
                 }
             }
 
-        if(!have_close)
+        if (!have_close)
         {
-            if(ans.empty() || ans.size() > location.size()) ans = location; //! 记录操作数少的
+            if (ans.empty() || ans.size() > location.size())
+                ans = location; //! 记录操作数少的
         }
         memcpy(g, backup, sizeof g); // 还原
     }
     printf("%d\n", ans.size());
-    for(auto op : ans)
+    for (auto op : ans)
     {
         printf("%d %d\n", op.x + 1, op.y + 1); //输出的下标是从1开始的, 所以要+1
     }

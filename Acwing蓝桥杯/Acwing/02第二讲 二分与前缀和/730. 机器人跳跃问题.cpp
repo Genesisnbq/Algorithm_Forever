@@ -15,11 +15,13 @@ int n;
 
 bool check(int x)
 {
-    for(int i = 1; i <= n; i++)
+    for (int i = 0; i <= n; i++)
     {
         x = 2 * x - h[i];
-        if(x >= 1e5) return true;
-        if(x < 1) return false;
+        if (x >= 1e5)
+            return true;
+        if (x < 1)
+            return false;
     }
     return true;
 }
@@ -27,13 +29,14 @@ bool check(int x)
 int main(void)
 {
     scanf("%d", &n);
-    for(int i = 1; i <= n; i++) scanf("%d", &h[i]); // h[1]-h[N];
+    for (int i = 0; i < n; i++)
+        scanf("%d", &h[i]); // h[1]-h[N];
     // E最大可以1e5 那么这样他就必然>=h[i]   1<=h[i]<=1e5  E最少需要1
     int l = 1, r = 1e5;
-    while(l < r)
+    while (l < r)
     {
         int mid = l + r >> 1;
-        if(check(mid))
+        if (check(mid))
             r = mid;
         else
             l = mid + 1;
